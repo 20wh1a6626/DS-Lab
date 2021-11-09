@@ -1,0 +1,66 @@
+#include<stdio.h>
+   int i = 0;
+   int linear_search_r(int n,int a[],int ele){
+   
+          if(a[i] == ele){
+                   return i;
+           }
+          else if(i < n){
+                   i++;
+                  return linear_search_r(n,a,ele);
+          }
+          else if(i > n){
+                  return -1;
+          }
+  
+  }
+  
+ 
+  int main(){
+          int a[50],n,ele;
+          int pos,i;
+          printf("enter number of elements: ");
+          scanf("%d",&n);
+          printf("Elements: \n");
+          for(i = 0;i < n;i++){
+                  scanf("%d",&a[i]);
+          }
+					printf("Element to be found: ");
+          scanf("%d",&ele);
+          pos = linear_search_r(n,a,ele);
+          if(pos == -1){
+                  printf("Element not found");
+          }
+          else{
+                 printf("Element found at position %d",pos+1);
+  
+          }
+ } 
+           
+					 
+					 
+/* output 1:
+
+enter number of elements: 5
+Elements: 
+3
+2
+4
+1
+6
+Element to be found: 4
+Element found at position 3
+
+output2:
+
+enter number of elements: 4
+Elements: 
+4
+2
+9
+7
+Element to be found: 5
+Element not found
+
+
+*/
