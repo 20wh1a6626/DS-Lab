@@ -1,0 +1,494 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node* link;
+};
+struct node* head = NULL, *cur, *temp, *temp1,*t;
+struct node* Create()
+{
+    int n;
+    printf("Enter number of nodes: ");
+    scanf("%d",&n);
+    while(n--)
+        {
+        cur = (struct node*)malloc(sizeof(struct node));
+        scanf("%d",&(cur->data));
+        cur->link = NULL;
+        if(head == NULL){
+            head = cur;
+        }
+        else{
+            temp = head;
+            while(temp->link != NULL){
+                temp = temp->link;
+            }
+            temp->link = cur;
+
+        }
+    }
+    return head;
+}
+
+struct node*insert_begin(int ele){
+    cur= (struct node*)malloc(sizeof(struct node));
+    cur-> data = ele;
+    cur-> link = head;
+    head = cur;
+    return head;
+    printf("\n");
+};
+
+struct node*insert_end(int ele){
+    cur= (struct node*)malloc(sizeof(struct node));
+    cur-> data = ele;
+    cur-> link = NULL;
+    temp = head;
+    while(temp-> link != NULL){
+            temp= temp-> link;
+    }
+    temp-> link = cur;
+
+    return head;
+    printf("\n");
+};
+
+struct node*insert_pos(int pos, int ele){
+    int c= 1;
+    cur= (struct node*)malloc(sizeof(struct node));
+    cur-> data = ele;
+    temp= head;
+    while(c < pos-1){
+        temp= temp-> link;
+        c++;
+    }
+    cur-> link = temp-> link;
+    temp-> link = cur;
+    return head;
+    printf("\n");
+};
+
+struct node*delete_begin(struct node*head){
+    temp= head;
+    head= temp-> link;
+    printf("Deleted element is %d\n", temp-> data);
+    free(temp);
+    return head;
+    printf("\n");
+};
+
+struct node*delete_end(struct node*head){
+    temp = head;
+
+    while(temp-> link != NULL){
+        temp1= temp;
+        temp= temp-> link;
+    }
+    temp1-> link = NULL;
+    printf("Deleted element is %d\n", temp-> data);
+    free(temp);
+    return head;
+
+};
+
+
+struct node*delete_pos(struct node*head, int pos){
+    temp= head;
+    int c= 1;
+    while(c < pos){
+        temp1= temp;
+        temp= temp-> link;
+        c++;
+    }
+    temp1-> link = temp-> link;
+    printf("Deleted element is %d\n", temp-> data);
+    free(temp);
+    return head;
+    printf("\n");
+};
+
+void Display(struct node*head){
+    temp = head;
+    while(temp->link != NULL){
+        printf("%d->",temp->data);
+        temp = temp->link;
+    }
+    printf("%d",temp->data);
+    printf("\n");
+}
+void reverse_display(struct node*head){
+    if(head != NULL){
+        reverse_display(head-> link);
+        printf("%d", head-> data);
+    }
+    printf("\n");
+}
+
+int searching(struct node*head, int key){
+    int c= 1;
+    temp= head;
+    while(temp != NULL){
+        if(key == temp-> data){
+            return c;
+        }
+        temp= temp-> link;
+        c++;
+    }
+    return -1;
+    printf("\n");
+}
+
+int sorting(struct node*head){
+    int c, i;
+    struct node* lptr = NULL,*t;
+    do{
+        temp = head;
+        c = 0;
+        while(temp->link != lptr){
+            if(temp->data > temp->link->data){
+                t = temp->data;
+                temp->data = temp->link->data;
+                temp->link->data = t;
+                c = 1;
+            }
+            temp = temp->link;
+        }
+        lptr = temp;
+    }while(c);
+}
+
+
+int main()
+{
+    int ch,ele,pos,key;
+    while(1)
+        {
+        printf("1-Create\n2-insert at begin\n3-insert at end\n4-insert at position\n5-delete at begin\n6-delete at end \n7-delete at position \n8-display\n9-reverse display\n10-searching\n11-sorting\n12-Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d",&ch);
+    switch(ch)
+        {
+        case 1:
+            head = Create();
+            break;
+        case 2:
+            scanf("%d",&ele);
+            head = insert_begin(ele);
+            break;
+        case 3:
+            scanf("%d",&ele);
+            head = insert_end(ele);
+            break;
+        case 4:
+            printf("Enter pos: ");
+            scanf("%d",&pos);
+            printf("Enter ele: ");
+            scanf("%d",&ele);
+            head = insert_pos(pos,ele);
+            break;
+        case 5:
+            head = delete_begin(head);
+            break;
+        case 6:
+            head = delete_end(head);
+            break;
+        case 7:
+            printf("Enter position: ");
+            scanf("%d",&pos);
+            head = delete_pos(head,pos);
+            break;
+        case 8:
+            Display(head);
+            break;
+        case 9:
+            reverse_display(head);
+            break;
+        case 10:
+            printf("key: ");
+            scanf("%d", &key);
+            pos = searching(head,key);
+            if(pos == -1)
+                printf("element not found");
+            else
+                printf("element found at %d",pos);
+            break;
+        case 11:
+            sorting(head);
+            break;
+        case 12:
+            exit(0);
+        }
+    }
+}
+/*
+OUTPUT:
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 1
+Enter number of nodes: 7
+7
+1
+4
+2
+1
+2
+8
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 2
+3
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 8
+3->7->1->4->2->1->2->8
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 3
+1
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 8
+3->7->1->4->2->1->2->8->1
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 4
+Enter position: 5
+Enter element: 3
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 5
+Deleted element is 3
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 8
+7->1->4->3->2->1->2->8->1
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 6
+Deleted element is 1
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 8
+7->1->4->3->2->1->2->8
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 7
+Enter position: 4
+Deleted element is 3
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 8
+7->1->4->2->1->2->8
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 9
+8
+2
+1
+2
+4
+1
+7
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 10
+5
+Element not found
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 11
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 8
+1->1->2->2->4->7->8
+
+1-create
+2-insert_begin
+3-insert_end
+4-insert_pos
+5-delete_begin
+6-delete_end
+7-delete_pos
+8- display
+9-reverse_display
+10-searching
+11-sorting
+12-exit
+Enter your choice: 12
+
+Process returned 0 (0x0)   execution time : 244.226 s
+Press any key to continue.*/
