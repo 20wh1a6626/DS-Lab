@@ -1,0 +1,38 @@
+#include<stdio.h>
+int linear(int a[],int key,int i){
+    if(a[i] == key){
+        return i;
+    }
+    else{
+        return linear(a,key,i+1);
+    }
+}
+
+int main(){
+    int a[100],i,key,j;
+    printf("Number of elements: ");
+    scanf("%d",&i);
+    printf("The elements: \n");
+    for(j=1;j<=i;j++){
+        scanf("%d",&a[j]);
+    }
+    printf("Give key: ");
+    scanf("%d",&key);
+    printf("position: %d\n",linear(a,key,0));
+}
+
+\*
+OUTPUT:
+
+Number of elements: 5
+The elements:
+2
+5
+8
+3
+7
+Give key: 3
+position: 4
+
+Process returned 0 (0x0)   execution time : 11.813 s
+Press any key to continue.*/
