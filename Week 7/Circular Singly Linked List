@@ -1,0 +1,430 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    struct node* link;
+};
+
+struct node* head = NULL, *cur, *temp, *temp1;
+struct node* Create(){
+    int n;
+    printf("Enter number of nodes: ");
+    scanf("%d",&n);
+    printf("Enter elements: \n");
+    while(n--){
+        cur = (struct node*)malloc(sizeof(struct node));
+        scanf("%d",&(cur->data));
+        if(head == NULL){
+            cur->link = cur;
+            head = cur;
+        }
+        else{
+            temp = head;
+            while(temp->link != head){
+                temp = temp->link;
+            }
+            temp->link = cur;
+            cur->link = head;
+        }
+    }
+    return head;
+};
+
+struct node* insert_begin(int ele){
+    cur = (struct node*)malloc(sizeof(struct node));
+    cur->data = ele;
+    while(temp->link != head){
+        temp = temp->link;
+    }
+    temp->link = cur;
+    cur->link = head;
+    head = cur;
+    return head;
+};
+
+struct node* insert_end(int ele){
+    cur = (struct node*)malloc(sizeof(struct node));
+    cur->data = ele;
+    temp = head;
+    while(temp->link != head){
+        temp = temp->link;
+    }
+    temp->link = cur;
+    cur->link = head;
+    return head;
+};
+
+struct node*insert_pos(int pos, int ele){
+    int c= 1;
+    cur= (struct node*)malloc(sizeof(struct node));
+    cur-> data = ele;
+    temp= head;
+    while(c < pos-1){
+        temp= temp-> link;
+        c++;
+    }
+    cur-> link = temp-> link;
+    temp-> link = cur;
+    return head;
+    printf("\n");
+};
+
+struct node* delete_begin(struct node* head){
+    temp = head;
+    while(temp->link != head){
+        temp = temp->link;
+    }
+    temp1 = head;
+    temp->link = temp1->link;
+    head = temp1->link;
+    printf("Deleted element is %d\n",temp1->data);
+    free(temp1);
+
+    return head;
+};
+
+struct node*delete_end(){
+    temp= head;
+    while(temp-> link != head){
+        temp1= temp;
+        temp= temp->link;
+    }
+    temp1->link= head;
+    printf("Deleted element is %d\n", temp->data);
+    free(temp);
+    return head;
+};
+
+struct node*delete_pos(struct node*head, int pos){
+    temp= head;
+    int c= 1;
+    while(c < pos){
+        temp1= temp;
+        temp= temp-> link;
+        c++;
+    }
+    temp1-> link = temp-> link;
+    printf("Deleted element is %d\n", temp-> data);
+    free(temp);
+    return head;
+    printf("\n");
+};
+
+void Display(struct node*head){
+    temp = head;
+    while(temp->link != head){
+        printf("%d->",temp->data);
+        temp = temp->link;
+    }
+    printf("%d->%d",temp->data,head->data);
+    printf("\n");
+}
+
+void reverse_display(struct node*head){
+    if(head->link == temp){
+        printf("%d", head->data);
+    }
+    if(head->link != temp){
+        reverse_display(head->link);
+        printf("%d", head-> data);
+    }
+    printf("\n");
+}
+
+int searching(struct node*head, int key){
+    int c= 1;
+    temp= head;
+    while(temp != NULL){
+        if(key == temp-> data){
+            return c;
+        }
+        temp= temp-> link;
+        c++;
+    }
+    return -1;
+    printf("\n");
+}
+
+int sorting(struct node*head){
+    int c, i, t;
+    struct node* lptr = NULL;
+    do{
+        temp = head;
+        c = 0;
+        while(temp->link != lptr){
+            if(temp->data > temp->link->data){
+                t = temp->data;
+                temp->data = temp->link->data;
+                temp->link->data = t;
+                c = 1;
+            }
+            temp = temp->link;
+        }
+        lptr = temp;
+    }while(c);
+}
+
+int main()
+{
+    int ch,ele,pos,key;
+    while(1)
+        {
+        printf("1-Create\n2-insert at begin\n3-insert at end\n4-insert at position\n5-delete at begin\n6-delete at end \n7-delete at position \n8-display\n9-reverse display\n10-Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d",&ch);
+    switch(ch)
+        {
+        case 1:
+            head = Create();
+            break;
+        case 2:
+            printf("Enter element: ");
+            scanf("%d",&ele);
+            head = insert_begin(ele);
+            break;
+        case 3:
+            printf("Enter element: ");
+            scanf("%d",&ele);
+            head = insert_end(ele);
+            break;
+        case 4:
+            printf("Enter position: ");
+            scanf("%d",&pos);
+            printf("Enter element: ");
+            scanf("%d",&ele);
+            head = insert_pos(pos,ele);
+            break;
+        case 5:
+            head = delete_begin(head);
+            break;
+        case 6:
+            head = delete_end(head);
+            break;
+        case 7:
+            printf("Enter position: ");
+            scanf("%d",&pos);
+            head = delete_pos(head,pos);
+            break;
+        case 8:
+            Display(head);
+            break;
+        case 9:
+            temp = head;
+            reverse_display(head);
+            break;
+        case 10:
+            exit(0);
+        }
+    }
+}
+
+
+OUTPUT:
+
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 1
+Enter number of nodes: 5
+Enter elements:
+1
+2
+3
+4
+5
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 8
+1->2->3->4->5->1
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 2
+Enter element: 0
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 8
+0->1->2->3->4->5->0
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 3
+Enter element: 6
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 8
+0->1->2->3->4->5->6->0
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 4
+Enter position: 5
+Enter element: 7
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 8
+0->1->2->3->7->4->5->6->0
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 5
+Deleted element is 0
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 8
+1->2->3->7->4->5->6->1
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 6
+Deleted element is 6
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 8
+1->2->3->7->4->5->1
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 7
+Enter position: 4
+Deleted element is 7
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 8
+1->2->3->4->5->1
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 9
+5
+4
+3
+2
+1
+1-Create
+2-insert at begin
+3-insert at end
+4-insert at position
+5-delete at begin
+6-delete at end
+7-delete at position
+8-display
+9-reverse display
+10-Exit
+Enter your choice: 10
+
+Process returned 0 (0x0)   execution time : 109.100 s
+Press any key to continue.
